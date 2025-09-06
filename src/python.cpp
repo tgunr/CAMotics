@@ -34,6 +34,7 @@
 
 #ifdef HAVE_V8
 #include <cbang/js/v8/JSImpl.h>
+#include <v8.h>
 #endif
 
 
@@ -96,6 +97,8 @@ static void addType(PyObject *mod, const char *name, PyTypeObject *type) {
 
 PyMODINIT_FUNC PyInit_camotics() {
 #ifdef HAVE_V8
+  // Disable pointer compression to match system V8 configuration
+  v8::V8::SetFlagsFromString("--no-pointer-compression");
   cb::gv8::JSImpl::init(0, 0);
 #endif
 
